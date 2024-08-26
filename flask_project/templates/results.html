@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filtered Results</title>
+</head>
+<body>
+    <h1>Filtered Results</h1>
+    <p>Budget: {{ budget }}</p>
+
+    <!-- Available Carpet Sizes -->
+    <h2>Available Carpet Sizes for Project "{{ project_name }}"</h2>
+    <ul>
+        {% for size in carpet_sizes %}
+        <li>{{ size['Carpet Size'] }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Display Filtered Results -->
+    <h2>Details</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Project Name</th>
+                <th>Location</th>
+                <th>Carpet Size</th>
+                <th>Quoting Price</th>
+                <th>Layout</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ item['Project Name'] }}</td>
+                <td>{{ item['Location'] }}</td>
+                <td>{{ item['Carpet Size'] }}</td>
+                <td>{{ item['Quoting Price'] }}</td>
+                <td><a href="{{ item['Layout'] }}">View Layout</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Carpet Size Selection -->
+    <form method="post" action="/details">
+        <label for="carpet_size">Select Carpet Size:</label>
+        <select id="carpet_size" name="carpet_size">
+            {% for size in carpet_sizes %}
+            <option value="{{ size['Carpet Size'] }}">{{ size['Carpet Size'] }}</option>
+            {% endfor %}
+        </select>
+        <input type="hidden" name="budget" value="{{ budget }}">
+        <input type="hidden" name="project_name" value="{{ project_name }}">
+        <button type="submit">Get Details</button>
+    </form>
+</body>
+</
