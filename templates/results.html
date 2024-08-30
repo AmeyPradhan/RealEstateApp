@@ -36,7 +36,7 @@
         }
 
         th, td {
-            padding: 10px;
+            padding: 8px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -59,7 +59,7 @@
         }
 
         input {
-            margin-bottom: 20px; /* Added margin to separate input from button */
+            margin-bottom: 20px;
         }
 
         button {
@@ -72,6 +72,19 @@
             button:hover {
                 background-color: #0056b3;
             }
+
+        /* Responsive styles for mobile devices */
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 10px; /* Reduce font size for smaller screens */
+                padding: 6px; /* Reduce padding for smaller screens */
+            }
+
+            label, select, input, button {
+                font-size: 14px; /* Adjust font size for form elements */
+                padding: 8px; /* Adjust padding for form elements */
+            }
+        }
     </style>
 </head>
 <body>
