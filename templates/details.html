@@ -34,17 +34,40 @@
             height: auto;
             border-radius: 8px;
         }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Details for {{ details.carpet_size }}</h1>
+        <h1>Details for {{ details.carpet_size }} sq.ft</h1>
         <p><strong>Project Name:</strong> {{ details.project_name }}</p>
         <p><strong>Configuration:</strong> {{ details.configuration }}</p>
-        <p><strong>Carpet Size:</strong> {{ details.carpet_size }}</p>
-        <p><strong>Quoting Price:</strong> {{ details.quoting_price }}</p>
+        <p><strong>Carpet Size:</strong> {{ details.carpet_size }} sq.ft</p>
+        <p><strong>Quoting Price:</strong> {{ details.quoting_price }} Cr</p>
         <p><strong>Layout:</strong> <a href="{{ details.layout_url }}" target="_blank">View Layout</a></p>
+        {% if details.image_url %}
         <img src="{{ details.image_url }}" alt="Layout Image">
+        {% else %}
+        <p>No image available</p>
+        {% endif %}
+        <form action="/" method="get">
+            <button type="submit">Return to Home Page</button>
+        </form>
     </div>
 </body>
 </html>
