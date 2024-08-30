@@ -29,12 +29,20 @@
             margin-top: 0;
         }
 
-        ul {
-            padding-left: 20px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
 
-        li {
-            margin-bottom: 10px;
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
         }
 
         label {
@@ -42,12 +50,16 @@
             margin-bottom: 10px;
         }
 
-        select, button {
+        select, input, button {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+        }
+
+        input {
+            margin-bottom: 20px; /* Added margin to separate input from button */
         }
 
         button {
@@ -65,24 +77,44 @@
 <body>
     <div class="container">
         <h1>Filtered Results</h1>
-        <p>Budget: {{ budget }}</p>
+        <p><strong>Budget:</strong> {{ budget }} Cr</p>
 
-        <h2>Available Carpet Sizes for Project "{{ project_name }}"</h2>
-        <ul>
-            {% for size in carpet_sizes %}
-            <li>{{ size['Carpet Size'] }}</li>
-            {% endfor %}
-        </ul>
+        <h2>Available Projects</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Project Name</th>
+                    <th>Location</th>
+                    <th>Configuration</th>
+                    <th>Carpet Size</th>
+                    <th>Quoting Price</th>
+                    <th>Possession Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <td>{{ item['Project Name'] }}</td>
+                    <td>{{ item['Location'] }}</td>
+                    <td>{{ item['Configuration'] }}</td>
+                    <td>{{ item['Carpet Size'] }} sq.ft</td>
+                    <td>{{ item['Quoting Price'] }} Cr</td>
+                    <td>{{ item['Possession Date'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
         <form method="post" action="/details">
-            <label for="carpet_size">Select Carpet Size:</label>
-            <select id="carpet_size" name="carpet_size">
-                {% for size in carpet_sizes %}
-                <option value="{{ size['Carpet Size'] }}">{{ size['Carpet Size'] }}</option>
+            <label for="project_name">Select Project:</label>
+            <select id="project_name" name="project_name">
+                {% for project in projects %}
+                <option value="{{ project }}">{{ project }}</option>
                 {% endfor %}
             </select>
+            <label for="carpet_size">Enter Carpet Size:</label>
+            <input type="text" id="carpet_size" name="carpet_size" required>
             <input type="hidden" name="budget" value="{{ budget }}">
-            <input type="hidden" name="project_name" value="{{ project_name }}">
             <button type="submit">Get Details</button>
         </form>
     </div>
